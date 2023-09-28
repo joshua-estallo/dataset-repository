@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home</title>
+  <style>
+    body {
+      background-color: #333;
+      color: white;
+    }
+    header {
+      background-color: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    header nav {
+      outline: white 2px solid;
+      width: 80%;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      color: white;
+      font-size: 24px;
+    }
+    main {
+      background-color: black;
+      display: flex;
+      justify-content: center;
+      margin-top: 50px;
+      align-items: center;
+    }
+
+    main .inner {
+      outline: 2px solid white;
+      width: 80%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .upload {
+      border: 2px solid green;
+      padding: 10px 20px;
+      background-color: #ddd;
+      color: black;
+      border-radius: 5px;
+    }
+
+    li {
+      list-style-type: none;
+    }
+    a {
+      color: yellowgreen;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="logo">
+        3js dataset repository
+      </div>
+      <div class="search">
+        search bar
+      </div>
+    </nav>
+  </header>
+  <main>
+    <div class="inner">
+      <div class="browse">
+        <h2>Similar Datasets</h2>
+
+        <ul>
+          {% for i in sd %}
+            <a href="/dataset/{{ i.id }}"><li>{{ i.id}} -- {{ i.title }} </li></a>
+            <p>Overview: {{ i.overview }} </p>
+          {% endfor %}
+        </ul>
+      </div>
+      <a href="upload/"><div class="upload">Upload</div></a>
+    </div>
+  </main>
+
+</body>
+</html>
