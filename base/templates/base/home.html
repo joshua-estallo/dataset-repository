@@ -96,14 +96,19 @@
     .hover:hover {
       color: yellow;
     }
+    input {
+      padding: 10px;
+    }
   </style>
 </head>
 <body>
   <header>
     <nav>
-      <a href="/"><div class="logo">3JS DATASET REPOSITORY</div></a>
+      <a href="/"><div class="logo">3Js DATASET REPOSITORY</div></a>
       <div class="search">
-        search bar
+        <form action="{% url 'home' %}" method="GET">
+          <input type="text" name="q" placeholder="Search..." autocomplete="off">
+        </form>
       </div>
     </nav>
   </header>

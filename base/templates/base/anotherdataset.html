@@ -129,14 +129,18 @@
       /* background-color: #777; */
       color: white;
     }
-    
+    input {
+      padding: 10px;
+    }
   </style>
 <body>
   <header>
     <nav>
       <a href="/"><div class="logo">3JS DATASET REPOSITORY</div></a>
       <div class="search">
-        search bar
+        <form action="{% url 'home' %}" method="GET">
+          <input type="text" name="q" placeholder="Search...">
+        </form>
       </div>
     </nav>
   </header>

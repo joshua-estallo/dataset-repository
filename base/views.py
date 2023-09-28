@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.db.models import Q
 from django.http import HttpResponse
 from .models import Dataset
 from .forms import DatasetForm
@@ -76,7 +77,11 @@ def anotherdataset(request, pk):
 
 # Create your views here.
 def home(request):
-  datasets = Dataset.objects.all()
+  q = request.GET.get('q') if request.GET.get('q') != None else ''
+  datasets = Dataset.objects.filter(
+    Q(title__icontains=q) |
+    Q(overview__icontains=q)
+  )
   return render(request, "base/home.html", {"datasets" : datasets})
 
 
