@@ -12,32 +12,27 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 
 def give_recommendations(title, cos_sim, df, id_to_index, title_to_id):
   idx = id_to_index[str(title_to_id[title])]
-  print(idx)
   if idx is None:
       print("Title Not Found")
       return None, None
   cos_sim_scores = list(enumerate(cos_sim[idx]))
   cos_sim_scores = sorted(cos_sim_scores, key=lambda x: x[1], reverse=True)
   cos_sim_scores = cos_sim_scores[:10]
-  for i in cos_sim_scores:
-      print(i)
   # Dataset indices
   dataset_indices = [cos_sim_score[0] for cos_sim_score in cos_sim_scores]
-  for i in dataset_indices:
-      print(i)
   similar_ids = [df.iloc[index]["id"] for index in dataset_indices]
   return similar_ids, cos_sim_scores
 
 
 
-def anotherhome(request):
+def anotherdataset(request, pk):
+  current_dataset = Dataset.objects.get(id=pk)
   datasets = Dataset.objects.all()
   # Convert the Django QuerySet to a list of dictionaries
   data_dict = list(datasets.values())
 
   # Create a Pandas DataFrame from the list of dictionaries
   df = pd.DataFrame(data_dict)
-  print(df.head())
   # Filling NaNs with empty string
   df["overview"] = df["overview"].fillna('')
 
@@ -58,18 +53,16 @@ def anotherhome(request):
       csv_reader = csv.DictReader(file)
       for row in csv_reader:
           title_to_id[row['title']] = row['id']
-  
-  print(title_to_id["Palm Leaf Patterns"])
-  
+    
   id_to_index = {str(id_): index for index, id_ in enumerate(df["id"])}
 
   # Primary keys 
-  pks, scores = give_recommendations("Maple Leaf Classification", cos_sim, df, id_to_index, title_to_id)
+  pks, scores = give_recommendations(current_dataset.title, cos_sim, df, id_to_index, title_to_id)
   sd = []
   for pk in pks:
     dataset = Dataset.objects.get(id=pk)
     sd.append(dataset)
-  return render(request, "base/anotherhome.html", {"sd" : sd})
+  return render(request, "base/anotherdataset.html", {"sd" : sd, "dataset" : current_dataset})
 
 
 

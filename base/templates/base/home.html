@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Home</title>
   <style>
+     * {
+      box-sizing: border-box;
+      margin: 0px;
+      padding: 0px;
+    }
     body {
       background-color: #333;
       color: white;
@@ -14,39 +19,45 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      margin-bottom: 20px;
     }
     header nav {
-      outline: white 2px solid;
       width: 80%;
       display: flex;
-      justify-content: space-around;
+      justify-content: space-between;
       align-items: center;
       color: white;
       font-size: 24px;
+      text-align: center;
+      margin-bottom: 5px;
+      padding: 20px;
     }
     main {
       background-color: black;
       display: flex;
       justify-content: center;
-      margin-top: 50px;
-      align-items: center;
+    }
+    main .content {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      width: 80%;
     }
 
     main .inner {
-      outline: 2px solid white;
-      width: 80%;
       display: flex;
-      flex-direction: column;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
+      padding: 10px;
+      margin-bottom: 20px;
     }
-
-    .upload {
-      border: 2px solid green;
-      padding: 10px 20px;
-      background-color: #ddd;
-      color: black;
+    .upload-button {
+      background-color: #000;
+      color: blue;
+      border: 1px solid #fff;
+      padding: 10px;
       border-radius: 5px;
+      cursor: pointer;
     }
 
     li {
@@ -55,33 +66,63 @@
     a {
       color: yellowgreen;
     }
+    h2 {
+      text-align: center;
+    }
+    .container {
+      display: flex;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      gap: 10px;
+      border-radius: 5px;
+      align-items: center;
+    }
+    .container a {
+      width: 20%;
+    }
+    .container p {
+      width: 80%;
+    }
+    .logo {
+      color: white;
+    }
+    p {
+      line-height: 1.5;
+    }
+    a {
+      text-decoration: none;
+    }
+    .hover:hover {
+      color: yellow;
+    }
   </style>
 </head>
 <body>
   <header>
     <nav>
-      <div class="logo">
-        3js dataset repository
-      </div>
+      <a href="/"><div class="logo">3JS DATASET REPOSITORY</div></a>
       <div class="search">
         search bar
       </div>
     </nav>
   </header>
   <main>
-    <div class="inner">
-      <div class="browse">
+    <div class="content">
+      <div class="inner">
         <h2>Browse Datasets</h2>
-  <h1>URI IS : {{ uri }}</h1>
-
+        <button class="upload-button"><a href="upload/" class="hover">Upload Dataset</a></button>
+      </div>
+      <div class="outer">
         <ul>
           {% for dataset in datasets %}
-            <a href="/dataset/{{ dataset.id }}"><li>{{ dataset.id}} -- {{ dataset.title }} </li></a>
-            <p>Overview: {{ dataset.overview }} </p>
+            <div class="container">
+              <a href="/anotherdataset/{{ dataset.id }}" class="hover"><li>{{ dataset.title }} </li></a>
+              <p>{{ dataset.overview }} </p>
+            </div>
           {% endfor %}
         </ul>
       </div>
-      <a href="upload/"><div class="upload">Upload</div></a>
     </div>
   </main>
 
